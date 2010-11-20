@@ -184,10 +184,14 @@ class sfRssFeed extends sfFeed
     $this->initContext();
     $xml = array();
     $xml[] = '<?xml version="1.0" encoding="'.$this->getEncoding().'" ?>';
-    $xml[] = '<rss version="'.$this->getVersion().'" xmlns:content="http://purl.org/rss/1.0/modules/content/">';
+    $xml[] = '<rss version="'.$this->getVersion().'" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">';
     $xml[] = '  <channel>';
     $xml[] = '    <title>'.$this->getTitle().'</title>';
     $xml[] = '    <link>'.$this->getLink().'</link>';
+    if ($this->getFeedUrl())
+    {
+      $xml[] = '    <atom:link rel="self" type="application/rss+xml" href="'.$this->getFeedUrl().'"/>';
+    }
     $xml[] = '    <description>'.$this->getDescription().'</description>';
     $xml[] = '    <pubDate>'.date(DATE_RSS, $this->getLatestPostDate()).'</pubDate>';
     if ($this->getAuthorEmail())
